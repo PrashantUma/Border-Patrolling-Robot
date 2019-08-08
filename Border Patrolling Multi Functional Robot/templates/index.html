@@ -1,0 +1,144 @@
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<style>
+.header
+{
+  width: 100%;
+  height: 60px;
+  background-color:#009999 ;
+  color: white; 
+ text-align: center;
+}
+.hind
+{
+  text-align: center;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  padding: 10px;
+}
+.rk
+{
+  margin-left: 150px;
+  background-color: white;
+  color: #1AA059;
+  padding: 10px;
+
+}
+a{
+  text-decoration: none;
+}
+
+a :hover{
+  background-color:#1AA059;
+  text-decoration: none;
+  color: white;
+}
+.rks
+{
+    width: 100%;
+    height: 300px;
+    background-color: yellow;
+    display:flex;
+}
+.rk1
+{
+    width: 60%;
+    height: 100%;
+    background-color: #F1F1F1;
+}
+.rk2
+{
+    width: 40%;
+     height: 100%;
+    background-color: red;
+}
+body
+{
+    background-color: grey;
+}
+.link
+{
+    color:white;
+}
+</style>
+<body>
+<div class="header">
+  
+<h1 class="hind" >BORDER PATROLLING MULTIFUNCTIONAL ROBOT<span style="color:#139442">1.0</span></h1>
+
+</div>
+<div class="rks">
+    <div class="rk1">
+        
+<img width="100%" height="100%" src="http://192.168.15.2:8081"/>
+    </div>
+    <div class="rk2">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3718.549083148077!2d81.60284041465279!3d21.24972218587912!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a28dde213f66723%3A0x21543965c50c43c7!2sNational+Institute+of+Technology%2C+Raipur!5e0!3m2!1sen!2sin!4v1552762619581" width="100%" height="100%" frameborder="0" style="border:0" allowfullscreen></iframe>
+    </div>
+</div>
+</div>
+<div style=" background-color: #009999; height:260px; width:480px;">
+    <div style="text-align: center; margin-top:-20px;width: 100%; height: 15px; color: white; background-color: #000000;" >
+         <h4> Controls</h4>
+             </div>
+
+<center>
+<br>
+<a href="#" id="up" class="link" style=" font-size:30px;text-decoration:none;">  &#x1F881;&#x1F881;<br>Forward</a><br><br></center>
+<a href="#" id="left" class="link" style="font-size:30px;text-decoration:none;margin-right: 200px;"> &#x1F880;&#x1F880;Left</a>
+<a href="#" id="right" class="link" style="font-size:30px; text-decoration:none;"> Right &#x1F882;&#x1F882;</a><br><br>
+<center><a href="#" class="link" id="down" style="font-size:30px;text-decoration:none;"> Backward<br> &#x1F883;&#x1F883;</a></center>
+</div>
+
+<a href="#" id="myButton" class="link"><button>Click to show Sensors Data</button></a>
+<div id="myText"></div>
+<script>
+$( document ).ready(function(){
+    $("#down").on("mousedown", function() {
+     $.get('/reverse');
+     }).on('mouseup', function() {
+     $.get('/stop');
+    });
+    $("#up").on("mousedown", function() {
+     $.get('/forward');
+     }).on('mouseup', function() {
+     $.get('/stop');
+    });
+    $("#left").on("mousedown", function() {
+     $.get('/left');
+     }).on('mouseup', function() {
+     $.get('/stop');
+    });
+    $("#right").on("mousedown", function() {
+     $.get('/right');
+     }).on('mouseup', function() {
+     $.get('/stop');
+    });
+});
+</script>
+<script>
+    $('#myButton').click(function() {
+  var i=0
+  var n=1;
+   for(i=0;i<n;i++)
+{
+        $.ajax({
+              type:'POST',
+              url: "{{ url_for('foo')}}",
+              dataType:"text",
+              success: function(response){
+                 console.log(response);
+                 //alert(response);
+	      document.getElementById("myText").innerHTML = response;
+              }
+
+      });
+}
+       
+    });
+  </script>
+
+</body>
+</html>
